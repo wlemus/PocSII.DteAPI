@@ -1,0 +1,6 @@
+@PocSII.DteAPI_HostAddress = http://localhost:5004
+
+GET {{PocSII.DteAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
