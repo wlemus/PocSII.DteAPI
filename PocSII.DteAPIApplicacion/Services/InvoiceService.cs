@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Components.Forms;
-using PocSII.DteAPIApplicacion.Interfaces;
+using PocSII.DteAPIApplicacion.DTOs;
+using PocSII.DteAPIApplicacion.Services.Interfaces;
 using PocSII.DteBusinessRules.Common;
 using PocSII.DteBusinessRules.Domain;
 using PocSII.DteBusinessRules.Dto;
@@ -17,10 +17,12 @@ namespace PocSII.DteAPIApplicacion.Services
 {
     public class InvoiceService : IDocumentService {
         private readonly IMapper _mapper;
+        private readonly ICompanyService _companyService;
         private readonly IProcessDocumentService _processDTEService;
-        public InvoiceService(IMapper mapper, IProcessDocumentService processDTEService) {
+        public InvoiceService(IMapper mapper, ICompanyService companyService, IProcessDocumentService processDTEService) {
             _mapper = mapper;
             _processDTEService = processDTEService;
+            _companyService = companyService;
         }
 
         public async Task<Result<bool>> SendAsync(ElectronicDocument documentoElectronico) {
@@ -46,88 +48,19 @@ namespace PocSII.DteAPIApplicacion.Services
         }
 
         private InvoiceDTO FillInvoiceDTO(Invoice invoice) {
+
+            CompanyFullDTO senderCompanyFullDTO = _companyService.GetFullCompanyInformation(invoice.RutEmisor).Result;
+            var recieverCompany = _companyService.GetCompanyByRut(invoice.RutReceptor).Result;
+
             return new InvoiceDTO {
                 ID = $"F{invoice.Folio}T{DOCType.Item33.GetXmlEnumValue()}",
-                Factura = new Invoice {
-                    Folio = "60",
-                    Totales = new TotalsDocument {
-                        MontoNeto = "100000",
-                        IVA = "19",
-                        TasaIVA = "19",
-                        MontoTotal = "119000"
-                    },
-                    FechaEmision = DateTime.Now.ToString(),
-                    FormaPago = "1",
-                    RutEmisor = "97975000-5",
-                    RutReceptor = "77777777-7",
-                    Detalle = new List<DetailDocument>{
-                    new DetailDocument {
-                        NombreItem = "Parlantes Multimedia 180W",
-                        CantidadItem = "20",
-                        PrecioItem = "4500",
-                        MontoItem = "90000",
-                        CodigoItem = new List<ItemCodeDetailDocument>
-                        {
-                            new ItemCodeDetailDocument
-                            {
-                                TipoCodigo = "INT1",
-                                ValorCodigo = "001"
-                            }
-                        }
-                    },
-                      new DetailDocument {
-                        NombreItem = "Caja de Diskettes 10 Unidades",
-                        CantidadItem = "5",
-                        PrecioItem = "1000",
-                        MontoItem = "5000",
-                        CodigoItem = new List<ItemCodeDetailDocument>
-                        {
-                            new ItemCodeDetailDocument
-                            {
-                                TipoCodigo = "INT1",
-                                ValorCodigo = "1515"
-                            }
-                        }
-                    }
-                }
-                },
-                Emisor = new CompanyDTO {
-                    Rut = "97975000-5",
-                    RazonSocial = "RUT DE PRUEBA",
-                    Giro = "Insumos de Computacion",
-                    Acteco = new List<string> { "31341" },
-                    CodigoSIISucursal = "1234",
-                    Direccion = "Teatinos 120, Piso 4",
-                    Comuna = "Santiago",
-                    Ciudad = "Santiago"
-                },
-                Receptor = new CompanyDTO {
-                    Rut = "77777777-7",
-                    RazonSocial = "EMPRESA LTDA",
-                    Giro = "COMPUTACION",
-                    Direccion = "SAN DIEGO 2222",
-                    Comuna = "LA FLORIDA",
-                    Ciudad = "SANTIAGO"
-                },
-                Resolucion = new ResolutionDTO {
-                    Numero = "0",
-                    Fecha = DateTime.Parse("2003-09-02")
-                },
-                FoliosInfo = new FoliosInfoDTO {
-                    FolioInicial = "1",
-                    FolioFinal = "200",
-                    FechaAutorizacion = DateTime.Parse("2003-09-04")
-                },
-                FechaFirmaDoc = DateTime.Parse("2003-09-04"),
-                TimbreElectronicoInfo = new ElectronicStamp {
-                    FechaFirmaDigitalDatosAutorizacion = DateTime.Parse("2003-10-13"),
-                    LlavePublicaModuloRSA = "0a4O6Kbx8Qj3K4iWSP4w7KneZYeJ+g/prihYtIEolKt3cykSxl1zO8vSXu397QhTmsX7SBEudTUx++2zDXBhZw==",
-                    LlavePublicaExponenteRSA = "Aw==",
-                    IdLlavePublica = "100",
-                    FirmaDigitalDatosAutorizacion = "g1AQX0sy8NJugX52k2hTJEZAE9Cuul6pqYBdFxj1N17umW7zG/hAavCALKByHzdYAfZ3LhGTXCai5zNxOo4lDQ==",
-                    FechaFirmaDigitalDatoDocumento = DateTime.Parse("2003-10-13"),
-                    FirmaDigitalDatoDocumento = "GbmDcS9e/jVC2LsLIe1iRV12Bf6lxsILtbQiCkh6mbjckFCJ7fj/kakFTS06Jo8i\r\nS4HXvJj3oYZuey53Krniew=="
-                },
+                Factura = invoice,
+                Emisor = senderCompanyFullDTO.Company,
+                FoliosInfo = senderCompanyFullDTO.Folios,
+                Resolucion = senderCompanyFullDTO.Resolucion,
+                TimbreElectronicoInfo = senderCompanyFullDTO.ElectronicStamp,
+                FechaFirmaDoc = DateTime.Now,
+                Receptor = recieverCompany
             };
         }
         public Task<Result<ElectronicDocument>> GetAsync(string folio) {

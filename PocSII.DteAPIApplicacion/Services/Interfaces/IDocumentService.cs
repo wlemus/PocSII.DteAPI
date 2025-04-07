@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PocSII.DteAPIApplicacion.Interfaces
+namespace PocSII.DteAPIApplicacion.Services.Interfaces
 {
    public interface IDocumentService
     {

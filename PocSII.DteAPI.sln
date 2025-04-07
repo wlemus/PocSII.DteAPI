@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PocSII.DteAPI", "PocSII.Dte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PocSII.DteAPIApplicacion", "PocSII.DteAPIApplicacion\PocSII.DteAPIApplicacion.csproj", "{376A5903-A88B-44E2-A3FC-42EC2958D542}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PocSII.DteAPIIDataAccess", "PocSII.DteAPIInfrastructure\PocSII.DteAPIIDataAccess.csproj", "{1F02B6B3-B5D7-4B14-AA71-4197D93AEBD5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{376A5903-A88B-44E2-A3FC-42EC2958D542}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{376A5903-A88B-44E2-A3FC-42EC2958D542}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{376A5903-A88B-44E2-A3FC-42EC2958D542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F02B6B3-B5D7-4B14-AA71-4197D93AEBD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F02B6B3-B5D7-4B14-AA71-4197D93AEBD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F02B6B3-B5D7-4B14-AA71-4197D93AEBD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F02B6B3-B5D7-4B14-AA71-4197D93AEBD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

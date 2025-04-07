@@ -2,7 +2,6 @@
 using Microsoft.VisualBasic.FileIO;
 using PocSII.DteAPIApplicacion.Common;
 using PocSII.DteAPIApplicacion.DTOs;
-using PocSII.DteAPIApplicacion.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using PocSII.DteAPIApplicacion.Services.Interfaces;
 
 namespace PocSII.DteAPIApplicacion.Services
 {

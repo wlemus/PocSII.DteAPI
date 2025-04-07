@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PocSII.DteAPIApplicacion.Common;
 using PocSII.DteAPIApplicacion.DTOs;
-using PocSII.DteAPIApplicacion.Interfaces;
+using PocSII.DteAPIApplicacion.Services.Interfaces;
 using System.Net;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

@@ -1,4 +1,4 @@
-﻿using PocSII.DteAPIApplicacion.Interfaces;
+﻿using PocSII.DteAPIApplicacion.Services.Interfaces;
 using PocSII.DteBusinessRules.Common;
 using PocSII.DteBusinessRules.Domain;
 using System;

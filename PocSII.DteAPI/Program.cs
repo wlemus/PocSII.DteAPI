@@ -1,11 +1,15 @@
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using PocSII.DteAPI.Common;
 using PocSII.DteAPIApplicacion.Common;
 using PocSII.DteAPIApplicacion.Interfaces;
 using PocSII.DteAPIApplicacion.Mappings;
 using PocSII.DteAPIApplicacion.Services;
+using PocSII.DteAPIApplicacion.Services.Interfaces;
+using PocSII.DteAPIInfrastructure.Context;
+using PocSII.DteAPIInfrastructure.Repositories;
 using PocSII.DteBusinessRules.Interfaces;
 using PocSII.DteProcessor.Services;
 using System.Text;
@@ -21,17 +25,32 @@ namespace PocSII.DteAPI
             // Add services to the container.
             builder.Services.AddControllers();
 
-            #region Dependencias
+            #region Dependences
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IDocumentService, InvoiceService>();
             builder.Services.AddScoped<DocumentServiceFactory>();
             builder.Services.AddHttpClient<DteSenderService>();
-             builder.Services.AddScoped<IProcessDocumentService, ProcessDTEService>();
+            builder.Services.AddScoped<IProcessDocumentService, ProcessDTEService>();
+
+            builder.Services.AddScoped<ICompanyService, CompanyService>();
+            builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+            builder.Services.AddScoped<IResolutionRepository, ResolutionRepository>();
             #endregion
 
+            #region Database
 
-            var appSettingsSection = builder.Configuration.GetSection("AppSettings");
+            builder.Services.AddDbContext<PocSIIDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("PocSIIConnectionString")));
+
+        #endregion
+        //Configuración de la base de datos
+     
+            //Configuración de AppSettings
+            #region AppSettings
+
+        var appSettingsSection = builder.Configuration.GetSection("AppSettings");
             builder.Services.Configure<AppSettings>(appSettingsSection);
+            #endregion
 
             //JWT Authentication
             #region JWT Authentication

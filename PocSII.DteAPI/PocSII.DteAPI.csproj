@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PocSII.DteAPIApplicacion\PocSII.DteAPIApplicacion.csproj" />
+    <ProjectReference Include="..\PocSII.DteAPIInfrastructure\PocSII.DteAPIIDataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>

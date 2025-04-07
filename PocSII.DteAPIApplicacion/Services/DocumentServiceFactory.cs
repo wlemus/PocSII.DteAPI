@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using PocSII.DteAPIApplicacion.Interfaces;
+using PocSII.DteAPIApplicacion.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
