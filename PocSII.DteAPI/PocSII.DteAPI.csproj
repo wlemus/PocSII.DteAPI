@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PocSII.DteAPIApplicacion\PocSII.DteAPIApplicacion.csproj" />
-    <ProjectReference Include="..\PocSII.DteAPIInfrastructure\PocSII.DteAPIIDataAccess.csproj" />
+    <ProjectReference Include="..\PocSII.DteAPIIDataAccess\PocSII.DteAPIIDataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>

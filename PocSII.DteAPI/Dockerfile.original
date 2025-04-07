@@ -13,8 +13,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["PocSII.DteAPI/PocSII.DteAPI.csproj", "PocSII.DteAPI/"]
-COPY ["PocSII.DteAPIApplicacion/PocSII.DteAPIApplicacion.csproj", "PocSII.DteAPIApplicacion/"]
-COPY ["PocSII.DteAPIIDataAccess/PocSII.DteAPIIDataAccess.csproj", "PocSII.DteAPIIDataAccess/"]
 RUN dotnet restore "./PocSII.DteAPI/PocSII.DteAPI.csproj"
 COPY . .
 WORKDIR "/src/PocSII.DteAPI"
